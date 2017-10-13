@@ -6,7 +6,7 @@ Standard input with timeout.
 ## Install
 
 ```bash
-$ pip install git+http://github.com/johejo/inputimeout.git
+$ pip install inputimeout
 ```
 
 ## Usage
