@@ -7,19 +7,21 @@ else:
     import sys
     import select
 
+DEFAULT_TIMEOUT = 30.0
+
 
 class TimeoutOccurred(Exception):
     pass
 
 
-def inputimeout(prompt='', timeout=0.0):
+def inputimeout(prompt='', timeout=DEFAULT_TIMEOUT):
     if platform.system() == 'Windows':
-        return win_inputimeout(prompt=prompt, timeout=timeout)
+        return win_input_with_timeout(prompt=prompt, timeout=timeout)
     else:
-        return unix_inputimeout(prompt=prompt, timeout=timeout)
+        return unix_input_with_timeout(prompt=prompt, timeout=timeout)
 
 
-def unix_inputimeout(prompt='', timeout=0.0):
+def unix_input_with_timeout(prompt='', timeout=DEFAULT_TIMEOUT):
     sys.stdout.write(prompt)
     sys.stdout.flush()
     (ready, _, _) = select.select([sys.stdin], [], [], timeout)
@@ -29,19 +31,19 @@ def unix_inputimeout(prompt='', timeout=0.0):
         raise TimeoutOccurred
 
 
-def win_inputimeout(prompt='', timeout=0.0):
+def win_input_with_timeout(prompt='', timeout=DEFAULT_TIMEOUT):
     begin = time.monotonic()
     end = begin + timeout
     for c in prompt:
         msvcrt.putwch(c)
     line = ''
-    time_up = True
+    is_timeout = True
     while time.monotonic() < end:
         if msvcrt.kbhit():
             c = msvcrt.getwch()
             msvcrt.putwch(c)
             if c == '\r' or c == '\n':
-                time_up = False
+                is_timeout = False
                 break
             if c == '\003':
                 raise KeyboardInterrupt
@@ -52,6 +54,6 @@ def win_inputimeout(prompt='', timeout=0.0):
         time.sleep(0.05)
     msvcrt.putwch('\r')
     msvcrt.putwch('\n')
-    if time_up:
+    if is_timeout:
         raise TimeoutOccurred
     return line
