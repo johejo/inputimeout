@@ -1,13 +1,13 @@
 from setuptools import setup, find_packages
 try:
-    with open('README.rst') as f:
+    with open('README.md') as f:
         readme = f.read()
 except IOError:
     readme = ''
 
 setup(
     name='inputimeout',
-    version='0.1.0',
+    version='0.1.1',
     author='Mitsuo Heijo',
     author_email='mitsuo_h@outlook.com',
     description='Standard input with timeout.',

@@ -18,10 +18,10 @@ def inputimeout(prompt='', timeout=DEFAULT_TIMEOUT):
     if platform.system() == 'Windows':
         return win_input_with_timeout(prompt=prompt, timeout=timeout)
     else:
-        return unix_input_with_timeout(prompt=prompt, timeout=timeout)
+        return _unix_input_with_timeout(prompt=prompt, timeout=timeout)
 
 
-def unix_input_with_timeout(prompt='', timeout=DEFAULT_TIMEOUT):
+def _unix_input_with_timeout(prompt='', timeout=DEFAULT_TIMEOUT):
     sys.stdout.write(prompt)
     sys.stdout.flush()
     (ready, _, _) = select.select([sys.stdin], [], [], timeout)
@@ -31,29 +31,29 @@ def unix_input_with_timeout(prompt='', timeout=DEFAULT_TIMEOUT):
         raise TimeoutOccurred
 
 
+def put_str(string):
+    for c in string:
+        msvcrt.putwch(c)
+
+
 def win_input_with_timeout(prompt='', timeout=DEFAULT_TIMEOUT):
     begin = time.monotonic()
     end = begin + timeout
-    for c in prompt:
-        msvcrt.putwch(c)
+    put_str(prompt)
     line = ''
-    is_timeout = True
     while time.monotonic() < end:
         if msvcrt.kbhit():
             c = msvcrt.getwch()
-            msvcrt.putwch(c)
             if c == '\r' or c == '\n':
-                is_timeout = False
-                break
+                put_str('\r\n')
+                return line
             if c == '\003':
                 raise KeyboardInterrupt
             if c == '\b':
                 line = line[:-1]
+                put_str('\r\n' + prompt + line)
             else:
+                msvcrt.putwch(c)
                 line = line + c
         time.sleep(0.05)
-    msvcrt.putwch('\r')
-    msvcrt.putwch('\n')
-    if is_timeout:
-        raise TimeoutOccurred
-    return line
+    raise TimeoutOccurred
