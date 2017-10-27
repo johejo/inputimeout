@@ -18,10 +18,10 @@ def inputimeout(prompt='', timeout=DEFAULT_TIMEOUT):
     if platform.system() == 'Windows':
         return win_input_with_timeout(prompt=prompt, timeout=timeout)
     else:
-        return _unix_input_with_timeout(prompt=prompt, timeout=timeout)
+        return unix_input_with_timeout(prompt=prompt, timeout=timeout)
 
 
-def _unix_input_with_timeout(prompt='', timeout=DEFAULT_TIMEOUT):
+def unix_input_with_timeout(prompt='', timeout=DEFAULT_TIMEOUT):
     sys.stdout.write(prompt)
     sys.stdout.flush()
     (ready, _, _) = select.select([sys.stdin], [], [], timeout)
