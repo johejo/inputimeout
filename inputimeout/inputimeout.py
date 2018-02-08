@@ -1,11 +1,12 @@
 import sys
 import platform
-import time
 
 if platform.system() == 'Windows':
     import msvcrt
+    import time
 else:
     import selectors
+    import termios
 
 DEFAULT_TIMEOUT = 30.0
 INTERVAL = 0.05
@@ -23,29 +24,6 @@ class TimeoutOccurred(Exception):
 def echo(string):
     sys.stdout.write(string)
     sys.stdout.flush()
-
-
-# def getch():
-#     sel = selectors.DefaultSelector()
-#     sel.register(sys.stdin, selectors.EVENT_READ)
-#     events = sel.select(INTERVAL)
-#
-#     if events:
-#         key, _ = events[0]
-#         return key.fileobj.read(1)
-#     else:
-#         raise TimeoutOccurred
-#
-#
-# def read_char():
-#     fd = sys.stdin.fileno()
-#     old_settings = termios.tcgetattr(fd)
-#     try:
-#         tty.setraw(sys.stdin.fileno())
-#         ch = sys.stdin.read(1)
-#     finally:
-#         termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
-#     return ch
 
 
 def inputimeout(prompt='', timeout=DEFAULT_TIMEOUT):
@@ -66,6 +44,7 @@ def posix_inputimeout(prompt='', timeout=DEFAULT_TIMEOUT):
         return key.fileobj.readline().rstrip(LF)
     else:
         echo(LF)
+        termios.tcflush(sys.stdin, termios.TCIFLUSH)
         raise TimeoutOccurred
 
 
