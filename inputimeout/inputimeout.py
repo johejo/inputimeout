@@ -69,4 +69,5 @@ def win_inputimeout(prompt='', timeout=DEFAULT_TIMEOUT):
                 msvcrt.putwch(c)
                 line = line + c
         time.sleep(0.05)
+    echo(LINE_FEED_CODE)
     raise TimeoutOccurred
