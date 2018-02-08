@@ -1,18 +1,19 @@
 import sys
-import selectors
 import platform
-
-DEFAULT_TIMEOUT = 30.0
-CRLF = '\r\n'
-LF = '\n'
 
 if platform.system() == 'Windows':
     import time
     import msvcrt
-    LINE_FEED_CODE = CRLF
 else:
-    LINE_FEED_CODE = LF
+    import selectors
 
+DEFAULT_TIMEOUT = 30.0
+INTERVAL = 0.05
+
+SP = ' '
+CR = '\r'
+LF = '\n'
+CRLF = CR + LF
 
 class TimeoutOccurred(Exception):
     pass
@@ -24,50 +25,45 @@ def echo(string):
 
 
 def inputimeout(prompt='', timeout=DEFAULT_TIMEOUT):
-
     echo(prompt)
 
-    if LINE_FEED_CODE == CRLF:
+    if platform.system() == 'Windows':
         return win_inputimeout(prompt, timeout)
+    else:
+        return posix_inputimeout(prompt, timeout)
 
+def posix_inputimeout(prompt='', timeout=DEFAULT_TIMEOUT):
     sel = selectors.DefaultSelector()
     sel.register(sys.stdin, selectors.EVENT_READ)
     events = sel.select(timeout)
 
     if events:
-        key, _ = events.pop()
-        return key.fileobj.readline().rstrip(LINE_FEED_CODE)
-
+        key, _ = events[0]
+        return key.fileobj.readline().rstrip(LF)
     else:
-        echo(LINE_FEED_CODE)
+        echo(LF)
         raise TimeoutOccurred
-
-
-def put_str(string):
-    for c in string:
-        msvcrt.putwch(c)
-
 
 def win_inputimeout(prompt='', timeout=DEFAULT_TIMEOUT):
     begin = time.monotonic()
     end = begin + timeout
-    put_str(prompt)
     line = ''
 
     while time.monotonic() < end:
         if msvcrt.kbhit():
             c = msvcrt.getwch()
-            if c == '\r' or c == '\n':
-                put_str('\r\n')
+            if c == CR or c == LF:
+                echo(CRLF)
                 return line
             if c == '\003':
                 raise KeyboardInterrupt
             if c == '\b':
                 line = line[:-1]
-                put_str('\r\n' + prompt + line)
+                echo(CR + prompt + line + SP)
             else:
-                msvcrt.putwch(c)
-                line = line + c
-        time.sleep(0.05)
-    echo(LINE_FEED_CODE)
+                echo(c)
+                line += c
+        time.sleep(INTERVAL)
+
+    echo(CRLF)
     raise TimeoutOccurred
