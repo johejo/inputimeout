@@ -1,8 +1,10 @@
 inputimeout
 ===========
 
-.. image:: https://img.shields.io/pypi/v/inputimeout.svg   :target: https://pypi.python.org/pypi/inputimeout
-.. image:: https://img.shields.io/github/license/mashape/apistatus.svg   :target: https://raw.githubusercontent.com/johejo/inputimeout/master/LICENSE
+.. image:: https://img.shields.io/pypi/v/inputimeout.svg
+    :target: https://pypi.python.org/pypi/inputimeout
+.. image:: https://img.shields.io/github/license/mashape/apistatus.svg
+    :target: https://raw.githubusercontent.com/johejo/inputimeout/master/LICENSE
 
 Description
 -----------
