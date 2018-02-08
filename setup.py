@@ -1,20 +1,25 @@
 from setuptools import setup, find_packages
+from inputimeout import (
+    __name__, __version__, __author__, __author_email__,
+    __description__, __license__, __url__,
+)
+
 try:
-    with open('README.md') as f:
+    with open('README.rst') as f:
         readme = f.read()
 except IOError:
     readme = ''
 
 setup(
-    name='inputimeout',
-    version='0.1.1',
-    author='Mitsuo Heijo',
-    author_email='mitsuo_h@outlook.com',
-    description='Standard input with timeout.',
+    name=__name__,
+    version=__version__,
+    author=__author__,
+    author_email=__author_email__,
+    description=__description__,
     long_description=readme,
     packages=find_packages(),
-    license='MIT',
-    url='http://github.com/johejo/inputimeout',
+    license=__license__,
+    url=__url__,
     py_modules=['inputimeout'],
     keyword=['input', 'timeout'],
     classifiers=[
@@ -24,8 +29,8 @@ setup(
         'License :: OSI Approved :: MIT License',
         'Operating System :: MacOS :: MacOS X',
         'Operating System :: Microsoft :: Windows',
-        'Operating System :: POSIX',
-        'Programming Language :: Python :: 3',
+        'Operating System :: POSIX :: Linux',
+        'Programming Language :: Python :: 3 :: Only',
         'Programming Language :: Python :: 3.6',
     ]
 )
