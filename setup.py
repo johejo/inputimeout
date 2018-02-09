@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 from inputimeout import (
-    __name__, __version__, __author__, __author_email__,
+    __title__, __version__, __author__, __author_email__,
     __description__, __license__, __url__,
 )
 
@@ -11,7 +11,7 @@ except IOError:
     readme = ''
 
 setup(
-    name=__name__,
+    name=__title__,
     version=__version__,
     author=__author__,
     author_email=__author_email__,
