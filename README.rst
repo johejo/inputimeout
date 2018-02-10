@@ -4,6 +4,9 @@ inputimeout
 .. image:: https://travis-ci.org/johejo/inputimeout.svg?branch=master
     :target: https://travis-ci.org/johejo/inputimeout
 
+.. image:: https://ci.appveyor.com/api/projects/status/2g1fbnrcoj64g8t9?svg=true
+    :target: https://ci.appveyor.com/project/johejo/inputimeout
+
 .. image:: https://img.shields.io/pypi/v/inputimeout.svg
     :target: https://pypi.python.org/pypi/inputimeout
 

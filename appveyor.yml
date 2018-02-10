@@ -17,6 +17,8 @@ install:
   - ECHO "Installed SDKs:"
   - ps: "ls \"C:/Program Files/Microsoft SDKs/Windows\""
 
+  - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
+
   - "python --version"
   - "python -c \"import struct; print(struct.calcsize('P') * 8)\""
 
