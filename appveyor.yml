@@ -30,11 +30,14 @@ test_script:
   - "py.test -s --cov=inputimeout tests\ "
 
 after_test:
-  - "rm -rf tests/coverages"
-  - "if not exist dist mkdir dist"
-  - "if exist .coverage (cp .coverage dist\) else (echo no .coverage)"
-  - "codecov"
-  - "if exist coverage.xml (cp coverage.xml dist\) else (echo no coverage.xml)"
+  - rm -rf tests/coverages
+  - if not exist dist mkdir dist
+  - if exist .coverage (cp .coverage dist\) else (echo no .coverage)
+  - codecov
+  - if exist coverage.xml (cp coverage.xml dist\) else (echo no coverage.xml)
+
+artifacts:
+  - path: dist\*
 
 build_script:
   - "python setup.py bdist_wheel"
