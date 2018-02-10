@@ -28,7 +28,7 @@ install:
 
 test_script:
   - "py.test --cov inputimeout tests\ "
-  - "coverage xml"
+  - "coverage xml -i"
   - "codecov"
 
 build_script:
