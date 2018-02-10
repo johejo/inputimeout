@@ -27,7 +27,7 @@ install:
   - "pip install flake8 pytest pytest-cov wheel codecov"
 
 test_script:
-  - "py.test --cov inputimeout tests\ "
+  - "py.test inputimeout tests\ --cov=codecov"
   - "coverage xml -i"
   - "codecov"
 
