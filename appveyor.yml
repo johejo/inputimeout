@@ -27,7 +27,9 @@ install:
   - "pip install flake8 pytest pytest-cov wheel codecov"
 
 test_script:
-  - '%PYTHON%\python.exe setup.py bdist_wheel'
   - "py.test --cov inputimeout tests\ "
   - "coverage xml"
   - "codecov"
+
+build_script:
+  - "python setup.py bdist_wheel"
