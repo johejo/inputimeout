@@ -1,0 +1,26 @@
+init:
+- ECHO %PYTHON%
+environment:
+  matrix:
+  - PYTHON: C:/Python35-x64
+  - PYTHON: C:/Python36-x64
+
+install:
+  - ECHO "Filesystem root:"
+  - ps: "ls \"C:/\""
+
+  - ECHO "Installed SDKs:"
+  - ps: "ls \"C:/Program Files/Microsoft SDKs/Windows\""
+
+  - "python --version"
+  - "python -c \"import struct; print(struct.calcsize('P') * 8)\""
+
+  - "pip install --disable-pip-version-check --user --upgrade pip"
+
+  - "pip install flake8 pytest pytest-cov wheel codecov"
+
+test_script:
+  - '%PYTHON%\python.exe setup.py bdist_wheel'
+  - "py.test --cov inputimeout tests\ "
+  - "coverage xml"
+  - "codecov"
