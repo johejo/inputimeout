@@ -64,7 +64,8 @@ def win_inputimeout(prompt='', timeout=DEFAULT_TIMEOUT):
                 raise KeyboardInterrupt
             if c == '\b':
                 line = line[:-1]
-                echo(CR + prompt + line + SP)
+                cover = SP * len(prompt + line + SP)
+                echo(CR + cover + CR + prompt + line)
             else:
                 echo(c)
                 line += c
