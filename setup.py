@@ -1,25 +1,28 @@
 from setuptools import setup, find_packages
-from inputimeout import (
-    __title__, __version__, __author__, __author_email__,
-    __description__, __license__, __url__,
-)
+import os
+from codecs import open
 
-try:
-    with open('README.rst') as f:
-        readme = f.read()
-except IOError:
-    readme = ''
+with open('README.rst', 'r', 'utf-8') as f:
+    readme = f.read()
+
+
+here = os.path.abspath(os.path.dirname(__file__))
+
+about = {}
+with open(os.path.join(here, 'inputimeout', '__version__.py'),
+          'r', 'utf-8') as f:
+    exec(f.read(), about)
 
 setup(
-    name=__title__,
-    version=__version__,
-    author=__author__,
-    author_email=__author_email__,
-    description=__description__,
+    name=about['__title__'],
+    version=about['__version__'],
+    author=about['__author__'],
+    author_email=about['__author_email__'],
+    description=about['__description__'],
     long_description=readme,
     packages=find_packages(),
-    license=__license__,
-    url=__url__,
+    license=about['__license__'],
+    url=about['__url__'],
     py_modules=['inputimeout'],
     keyword=['input', 'timeout'],
     classifiers=[

@@ -1,12 +1,4 @@
 import sys
-import platform
-
-if platform.system() == 'Windows':
-    import msvcrt
-    import time
-else:
-    import selectors
-    import termios
 
 DEFAULT_TIMEOUT = 30.0
 INTERVAL = 0.05
@@ -24,13 +16,6 @@ class TimeoutOccurred(Exception):
 def echo(string):
     sys.stdout.write(string)
     sys.stdout.flush()
-
-
-def inputimeout(prompt='', timeout=DEFAULT_TIMEOUT):
-    if platform.system() == 'Windows':
-        return win_inputimeout(prompt, timeout)
-    else:
-        return posix_inputimeout(prompt, timeout)
 
 
 def posix_inputimeout(prompt='', timeout=DEFAULT_TIMEOUT):
@@ -73,3 +58,18 @@ def win_inputimeout(prompt='', timeout=DEFAULT_TIMEOUT):
 
     echo(CRLF)
     raise TimeoutOccurred
+
+
+try:
+    import msvcrt
+
+except ImportError:
+    import selectors
+    import termios
+
+    inputimeout = posix_inputimeout
+
+else:
+    import time
+
+    inputimeout = win_inputimeout
