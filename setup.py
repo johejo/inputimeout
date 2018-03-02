@@ -1,4 +1,4 @@
-from setuptools import setup, find_packages
+from setuptools import setup
 import os
 from codecs import open
 
@@ -14,7 +14,7 @@ with open(os.path.join(here, 'inputimeout', '__version__.py'),
     exec(f.read(), about)
 
 tests_requirements = [
-    'pytest-cov', 'pytest', 'flake8'
+    'pytest-cov', 'pytest', 'flake8',
 ]
 
 setup(
@@ -24,7 +24,7 @@ setup(
     author_email=about['__author_email__'],
     description=about['__description__'],
     long_description=readme,
-    packages=find_packages(),
+    packages=['inputimeout'],
     python_requires='>=3.4',
     license=about['__license__'],
     url=about['__url__'],
@@ -41,5 +41,5 @@ setup(
         'Programming Language :: Python :: 3 :: Only',
         'Programming Language :: Python :: 3.6',
     ],
-    tests_requires=tests_requirements,
+    tests_require=tests_requirements,
 )
