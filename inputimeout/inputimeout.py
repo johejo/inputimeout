@@ -41,8 +41,8 @@ def win_inputimeout(prompt='', timeout=DEFAULT_TIMEOUT):
 
     while time.monotonic() < end:
         if msvcrt.kbhit():
-            c = msvcrt.getwch()
-            if c == CR or c == LF:
+            c = msvcrt.getwche()
+            if c in (CR, LF):
                 echo(CRLF)
                 return line
             if c == '\003':
@@ -52,7 +52,6 @@ def win_inputimeout(prompt='', timeout=DEFAULT_TIMEOUT):
                 cover = SP * len(prompt + line + SP)
                 echo(''.join([CR, cover, CR, prompt, line]))
             else:
-                echo(c)
                 line += c
         time.sleep(INTERVAL)
 
