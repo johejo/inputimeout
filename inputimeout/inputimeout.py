@@ -50,7 +50,7 @@ def win_inputimeout(prompt='', timeout=DEFAULT_TIMEOUT):
             if c == '\b':
                 line = line[:-1]
                 cover = SP * len(prompt + line + SP)
-                echo(CR + cover + CR + prompt + line)
+                echo(''.join([CR, cover, CR, prompt, line]))
             else:
                 echo(c)
                 line += c

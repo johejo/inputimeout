@@ -13,6 +13,10 @@ with open(os.path.join(here, 'inputimeout', '__version__.py'),
           'r', 'utf-8') as f:
     exec(f.read(), about)
 
+tests_requirements = [
+    'pytest-cov', 'pytest', 'flake8'
+]
+
 setup(
     name=about['__title__'],
     version=about['__version__'],
@@ -21,10 +25,11 @@ setup(
     description=about['__description__'],
     long_description=readme,
     packages=find_packages(),
+    python_requires='>=3.4',
     license=about['__license__'],
     url=about['__url__'],
     py_modules=['inputimeout'],
-    keyword=['input', 'timeout'],
+    keyword=['input', 'timeout', 'stdin'],
     classifiers=[
         'Development Status :: 4 - Beta',
         'Environment :: Console',
@@ -35,5 +40,6 @@ setup(
         'Operating System :: POSIX :: Linux',
         'Programming Language :: Python :: 3 :: Only',
         'Programming Language :: Python :: 3.6',
-    ]
+    ],
+    tests_requires=tests_requirements,
 )
