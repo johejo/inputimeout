@@ -16,7 +16,7 @@ before_script:
   - "./cc-test-reporter before-build"
 
 script:
-  - "flake8 --ignore=F401 tests inputimeout"
+  - "flake8 tests inputimeout"
   - "py.test -s --cov=inputimeout tests/"
 
 after_script:
