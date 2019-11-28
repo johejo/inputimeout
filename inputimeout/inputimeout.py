@@ -62,7 +62,7 @@ def win_inputimeout(prompt='', timeout=DEFAULT_TIMEOUT):
 try:
     import msvcrt
 
-except ImportError:
+except (ImportError, ModuleNotFoundError):
     import selectors
     import termios
 
