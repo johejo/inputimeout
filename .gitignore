@@ -107,3 +107,4 @@ venv.bak/
 .idea/
 debug.py
 .pytest_cache/
+.vim
