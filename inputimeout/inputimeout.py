@@ -3,9 +3,9 @@ import sys
 DEFAULT_TIMEOUT = 30.0
 INTERVAL = 0.05
 
-SP = ' '
-CR = '\r'
-LF = '\n'
+SP = " "
+CR = "\r"
+LF = "\n"
 CRLF = CR + LF
 
 
@@ -18,7 +18,7 @@ def echo(string):
     sys.stdout.flush()
 
 
-def posix_inputimeout(prompt='', timeout=DEFAULT_TIMEOUT):
+def posix_inputimeout(prompt="", timeout=DEFAULT_TIMEOUT):
     echo(prompt)
     sel = selectors.DefaultSelector()
     sel.register(sys.stdin, selectors.EVENT_READ)
@@ -33,11 +33,11 @@ def posix_inputimeout(prompt='', timeout=DEFAULT_TIMEOUT):
         raise TimeoutOccurred
 
 
-def win_inputimeout(prompt='', timeout=DEFAULT_TIMEOUT):
+def win_inputimeout(prompt="", timeout=DEFAULT_TIMEOUT):
     echo(prompt)
     begin = time.monotonic()
     end = begin + timeout
-    line = ''
+    line = ""
 
     while time.monotonic() < end:
         if msvcrt.kbhit():
@@ -45,12 +45,12 @@ def win_inputimeout(prompt='', timeout=DEFAULT_TIMEOUT):
             if c in (CR, LF):
                 echo(CRLF)
                 return line
-            if c == '\003':
+            if c == "\003":
                 raise KeyboardInterrupt
-            if c == '\b':
+            if c == "\b":
                 line = line[:-1]
                 cover = SP * len(prompt + line + SP)
-                echo(''.join([CR, cover, CR, prompt, line]))
+                echo("".join([CR, cover, CR, prompt, line]))
             else:
                 line += c
         time.sleep(INTERVAL)

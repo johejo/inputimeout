@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "inputimeout"
+version = "1.0.5"
+description = "Multi platform standard input with timeout"
+authors = ["Mitsuo Heijo <mitsuo.heijo@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/johejo/inputimeout.git"
+keywords = ["input", "timeout"]
+
+[tool.poetry.dependencies]
+python = ">=3.6"
+
+[tool.poetry.dev-dependencies]
+flake8 = "^3.7.9"
+black = "^19.10b0"
+pytest = "^5.4.1"
+pytest-cov = "^2.8.1"
+codecov = "^2.0.22"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
