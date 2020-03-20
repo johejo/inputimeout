@@ -7,8 +7,8 @@ on:
     branches:
       - master
 jobs:
-  test:
-    name: test
+  ci:
+    name: ci
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
@@ -19,16 +19,15 @@ jobs:
       - uses: actions/setup-python@v1
         with:
           python-version: ${{ matrix.python }}
-      - name: Install poetry
-        run: |
-          pip install poetry
       - name: Install dev dependencies
         run: |
-          poetry install
-      - name: Run test
+          pip install flake8 pytest pytest-cov codecov
+      - name: Run flake8
         run: |
-          poetry shell
+          flake8 inputimeout tests
+      - name: Run pytest
+        run: |
           pytest -s --cov=inputimeout tests/
       - name: Upload coverage
         run: |
-          poetry run codecov -t ${{ secrets.CODECOV_TOKEN }}
+          codecov -t ${{ secrets.CODECOV_TOKEN }}
