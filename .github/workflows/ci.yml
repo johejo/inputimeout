@@ -27,7 +27,8 @@ jobs:
           poetry install
       - name: Run test
         run: |
-          poetry run pytest -s --cov=inputimeout tests/
+          poetry shell
+          pytest -s --cov=inputimeout tests/
       - name: Upload coverage
         run: |
           poetry run codecov -t ${{ secrets.CODECOV_TOKEN }}
