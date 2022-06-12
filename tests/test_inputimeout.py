@@ -1,8 +1,9 @@
-import pytest
+import unittest
 
 from inputimeout import inputimeout, TimeoutOccurred
 
 
-def test_inputimeout():
-    with pytest.raises(TimeoutOccurred):
-        inputimeout('>>', 3)
+class TestInputimeout(unittest.TestCase):
+    def test_inputimeout(self):
+        with self.assertRaises(TimeoutOccurred):
+            inputimeout('>>', 3)
