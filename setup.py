@@ -25,7 +25,7 @@ setup(
     description=about['__description__'],
     long_description=readme,
     packages=['inputimeout'],
-    python_requires='>=3.4',
+    python_requires='>=3.8',
     license=about['__license__'],
     url=about['__url__'],
     py_modules=['inputimeout'],
@@ -39,7 +39,6 @@ setup(
         'Operating System :: Microsoft :: Windows',
         'Operating System :: POSIX :: Linux',
         'Programming Language :: Python :: 3 :: Only',
-        'Programming Language :: Python :: 3.6',
     ],
     tests_require=tests_requirements,
 )
